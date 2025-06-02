@@ -29,20 +29,32 @@
       <div id="lighting-buttons" class="button-group"></div>
     </section>
 
-    <!-- User Inputs -->
+    <!-- Character -->
     <section class="prompt-section">
-      <label>Character:</label>
-      <input type="text" id="character" />
+      <label for="character">Character:</label>
+      <textarea id="character" rows="3" placeholder="Describe your character..."></textarea>
+    </section>
 
-      <label>Main Activity:</label>
-      <select id="activity">
+    <!-- Activity -->
+    <section class="prompt-section">
+      <h2>Main Activity</h2>
+      <select id="activity-select">
         <!-- Populated dynamically -->
       </select>
+      <input type="text" id="custom-activity" placeholder="Add custom activity" />
+      <button id="add-activity-btn">Add Activity</button>
+      <div id="added-activities" class="tag-container"></div>
+    </section>
 
-      <label>Background:</label>
-      <select id="background">
+    <!-- Background -->
+    <section class="prompt-section">
+      <h2>Background</h2>
+      <select id="background-select">
         <!-- Populated dynamically -->
       </select>
+      <input type="text" id="custom-background" placeholder="Add custom background" />
+      <button id="add-background-btn">Add Background</button>
+      <div id="added-backgrounds" class="tag-container"></div>
     </section>
 
     <!-- Generate Button -->
