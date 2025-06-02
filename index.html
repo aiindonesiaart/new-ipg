@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Image Prompt Generator</title>
+  <title>🖼️ Image Prompt Generator</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="light-mode">
@@ -13,47 +13,45 @@
     <!-- Angle View -->
     <section class="prompt-section">
       <h2>Angle View</h2>
+      <input type="text" class="search-input" placeholder="Search angle view..." oninput="filterButtons('angle-view-buttons', this.value)" />
       <div id="angle-view-buttons" class="button-group"></div>
     </section>
 
     <!-- Art Style -->
     <section class="prompt-section">
       <h2>Art Style</h2>
-      <input type="text" id="art-style-search" placeholder="Search art style..." class="search-input"/>
+      <input type="text" id="art-style-search" class="search-input" placeholder="Search art style..." oninput="filterButtons('art-style-buttons', this.value)" />
       <div id="art-style-buttons" class="button-group"></div>
     </section>
 
     <!-- Lighting -->
     <section class="prompt-section">
       <h2>Lighting</h2>
+      <input type="text" class="search-input" placeholder="Search lighting..." oninput="filterButtons('lighting-buttons', this.value)" />
       <div id="lighting-buttons" class="button-group"></div>
     </section>
 
     <!-- Character -->
     <section class="prompt-section">
       <label for="character">Character:</label>
-      <textarea id="character" rows="3" placeholder="Describe your character..."></textarea>
+      <textarea id="character" rows="3" placeholder="Describe the character..."></textarea>
     </section>
 
     <!-- Activity -->
     <section class="prompt-section">
       <h2>Main Activity</h2>
-      <select id="activity-select">
-        <!-- Populated dynamically -->
-      </select>
+      <select id="activity-select"></select>
       <input type="text" id="custom-activity" placeholder="Add custom activity" />
-      <button id="add-activity-btn">Add Activity</button>
+      <button onclick="addCustomTag('added-activities', 'custom-activity')">Add Activity</button>
       <div id="added-activities" class="tag-container"></div>
     </section>
 
     <!-- Background -->
     <section class="prompt-section">
       <h2>Background</h2>
-      <select id="background-select">
-        <!-- Populated dynamically -->
-      </select>
+      <select id="background-select"></select>
       <input type="text" id="custom-background" placeholder="Add custom background" />
-      <button id="add-background-btn">Add Background</button>
+      <button onclick="addCustomTag('added-backgrounds', 'custom-background')">Add Background</button>
       <div id="added-backgrounds" class="tag-container"></div>
     </section>
 
@@ -61,8 +59,8 @@
     <button id="generate-btn">Generate Prompt</button>
 
     <!-- Output -->
-    <div id="result" class="result-box">
-      <textarea id="prompt-output" readonly></textarea>
+    <div class="result-box">
+      <textarea id="prompt-output" readonly placeholder="Your generated prompt will appear here..."></textarea>
       <button id="copy-btn">Copy to Clipboard</button>
     </div>
 
@@ -70,7 +68,6 @@
     <button id="darkmode-toggle">Toggle Dark Mode</button>
   </div>
 
-  <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
