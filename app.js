@@ -3,31 +3,51 @@
 document.addEventListener("DOMContentLoaded", () => {
   populateButtons("angle-view-buttons", angleViews);
   populateButtons("lighting-buttons", lightingTypes);
+  populateButtons("art-style-buttons", artStyles);
 
-  // Populate Activity Select
-  const activitySelect = document.getElementById("activity");
-  activities.forEach(act => {
-    const option = document.createElement("option");
-    option.value = act;
-    option.textContent = act.charAt(0).toUpperCase() + act.slice(1);
-    activitySelect.appendChild(option);
-  });
+  // Populate dropdowns
+  populateDropdown("activity-select", activities);
+  populateDropdown("background-select", backgrounds);
 
-  // Populate Background Select
-  const backgroundSelect = document.getElementById("background");
-  backgrounds.forEach(bg => {
-    const option = document.createElement("option");
-    option.value = bg;
-    option.textContent = bg.charAt(0).toUpperCase() + bg.slice(1);
-    backgroundSelect.appendChild(option);
-  });
-
-  // Filterable Art Styles
-  document.getElementById("art-style-search").addEventListener("input", (e) => {
+  // Searchable Art Styles
+  document.getElementById("art-style-search").addEventListener("input", e => {
     const filtered = artStyles.filter(style =>
       style.label.toLowerCase().includes(e.target.value.toLowerCase())
     );
     populateButtons("art-style-buttons", filtered);
+  });
+
+  // Add Custom Activity
+  document.getElementById("add-activity-btn").addEventListener("click", () => {
+    const input = document.getElementById("custom-activity");
+    if (input.value.trim()) {
+      createTag("added-activities", input.value.trim());
+      input.value = "";
+    }
+  });
+
+  // Add Custom Background
+  document.getElementById("add-background-btn").addEventListener("click", () => {
+    const input = document.getElementById("custom-background");
+    if (input.value.trim()) {
+      createTag("added-backgrounds", input.value.trim());
+      input.value = "";
+    }
+  });
+
+  // Select Option and Add Tag
+  document.getElementById("activity-select").addEventListener("change", e => {
+    const value = e.target.value;
+    if (value && !isTagExist("added-activities", value)) {
+      createTag("added-activities", value);
+    }
+  });
+
+  document.getElementById("background-select").addEventListener("change", e => {
+    const value = e.target.value;
+    if (value && !isTagExist("added-backgrounds", value)) {
+      createTag("added-backgrounds", value);
+    }
   });
 
   // Generate Prompt
@@ -54,33 +74,78 @@ function populateButtons(containerId, items) {
     const btn = document.createElement("button");
     btn.innerText = item.label;
     btn.setAttribute("data-tooltip", item.tooltip);
-    btn.onclick = () => toggleSelection(btn);
+    btn.onclick = () => selectButton(btn, containerId);
     container.appendChild(btn);
   });
 }
 
-function toggleSelection(button) {
+function selectButton(button, containerId) {
+  const container = document.getElementById(containerId);
+  const allButtons = container.querySelectorAll("button");
+
   button.classList.toggle("selected");
+
+  // Show only selected
+  allButtons.forEach(btn => {
+    btn.style.display = btn.classList.contains("selected") ? "inline-block" : "none";
+  });
+
+  // Show all again if none selected
+  if (!Array.from(allButtons).some(btn => btn.classList.contains("selected"))) {
+    allButtons.forEach(btn => btn.style.display = "inline-block");
+  }
+
+  alert(`${button.innerText} selected`);
+}
+
+function populateDropdown(id, options) {
+  const select = document.getElementById(id);
+  options.forEach(option => {
+    const opt = document.createElement("option");
+    opt.value = option;
+    opt.textContent = option.charAt(0).toUpperCase() + option.slice(1);
+    select.appendChild(opt);
+  });
+}
+
+function createTag(containerId, text) {
+  const container = document.getElementById(containerId);
+  const tag = document.createElement("span");
+  tag.className = "tag";
+  tag.textContent = text;
+
+  const removeBtn = document.createElement("button");
+  removeBtn.textContent = "×";
+  removeBtn.onclick = () => container.removeChild(tag);
+
+  tag.appendChild(removeBtn);
+  container.appendChild(tag);
+}
+
+function isTagExist(containerId, text) {
+  const container = document.getElementById(containerId);
+  return Array.from(container.querySelectorAll(".tag")).some(tag => tag.textContent.includes(text));
 }
 
 function generatePrompt() {
   const character = document.getElementById("character").value.trim();
-  const activity = document.getElementById("activity").value;
-  const background = document.getElementById("background").value;
 
   const selectedAngles = getSelectedTexts("angle-view-buttons");
   const selectedArtStyles = getSelectedTexts("art-style-buttons");
   const selectedLightings = getSelectedTexts("lighting-buttons");
 
-  let promptID = `${character}, ${activity}, ${background}`;
-  if (selectedAngles.length > 0) promptID += `, ${selectedAngles.join(", ")}`;
-  if (selectedArtStyles.length > 0) promptID += `, ${selectedArtStyles.join(", ")}`;
-  if (selectedLightings.length > 0) promptID += `, ${selectedLightings.join(", ")}`;
+  const addedActivities = getAddedTags("added-activities");
+  const addedBackgrounds = getAddedTags("added-backgrounds");
 
-  const promptEN = translateToEnglish(promptID); // Placeholder function
+  let prompt = `${character}`;
 
-  const output = document.getElementById("prompt-output");
-  output.value = `ID: ${promptID}\n\nEN: ${promptEN}`;
+  if (addedActivities.length > 0) prompt += `, ${addedActivities.join(", ")}`;
+  if (addedBackgrounds.length > 0) prompt += `, ${addedBackgrounds.join(", ")}`;
+  if (selectedAngles.length > 0) prompt += `, ${selectedAngles.join(", ")}`;
+  if (selectedArtStyles.length > 0) prompt += `, ${selectedArtStyles.join(", ")}`;
+  if (selectedLightings.length > 0) prompt += `, ${selectedLightings.join(", ")}`;
+
+  document.getElementById("prompt-output").value = prompt;
 }
 
 function getSelectedTexts(containerId) {
@@ -88,7 +153,7 @@ function getSelectedTexts(containerId) {
   return Array.from(container.querySelectorAll(".selected")).map(btn => btn.innerText);
 }
 
-function translateToEnglish(text) {
-  // You can use Google Translate API or static mapping here
-  return text; // Simplified for demo
+function getAddedTags(containerId) {
+  const container = document.getElementById(containerId);
+  return Array.from(container.querySelectorAll(".tag")).map(tag => tag.textContent.replace("×", "").trim());
 }
