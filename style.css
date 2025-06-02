@@ -1,0 +1,66 @@
+/* style.css */
+
+* {
+  box-sizing: border-box;
+}
+
+body.light-mode {
+  background-color: #f4f4f4;
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
+body.dark-mode {
+  background-color: #1a1a1a;
+  color: #e6e6e6;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.button-group button {
+  display: inline-block;
+  margin: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  background: #ddd;
+  position: relative;
+}
+
+.button-group button:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 5px 10px;
+  white-space: nowrap;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 1;
+  min-width: 100px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.result-box textarea {
+  width: 100%;
+  height: 150px;
+  margin-top: 10px;
+  resize: vertical;
+}
+
+#copy-btn {
+  margin-top: 10px;
+}
