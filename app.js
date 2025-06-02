@@ -168,24 +168,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Generate Prompt
 function generatePrompt() {
-  const character = document.getElementById("character").value.trim();
-
-  const addedActivities = getAddedTags("added-activities");
-  const addedBackgrounds = getAddedTags("added-backgrounds");
-
+  // Get selections from each section
   const selectedAngles = getSelectedTexts("angle-view-buttons");
   const selectedArtStyles = getSelectedTexts("art-style-buttons");
+  const character = document.getElementById("character").value.trim();
+  const addedActivities = getAddedTags("added-activities");
   const selectedLightings = getSelectedTexts("lighting-buttons");
+  const addedBackgrounds = getAddedTags("added-backgrounds");
 
-  let prompt = `${character}`;
+  // Build prompt parts in desired order
+  const promptParts = [];
 
-  if (addedActivities.length > 0) prompt += `, ${addedActivities.join(", ")}`;
-  if (addedBackgrounds.length > 0) prompt += `, ${addedBackgrounds.join(", ")}`;
-  if (selectedAngles.length > 0) prompt += `, ${selectedAngles.join(", ")}`;
-  if (selectedArtStyles.length > 0) prompt += `, ${selectedArtStyles.join(", ")}`;
-  if (selectedLightings.length > 0) prompt += `, ${selectedLightings.join(", ")}`;
+  if (selectedAngles.length > 0) promptParts.push(selectedAngles.join(", "));
+  if (selectedArtStyles.length > 0) promptParts.push(selectedArtStyles.join(", "));
+  if (character) promptParts.push(character);
+  if (addedActivities.length > 0) promptParts.push(addedActivities.join(", "));
+  if (selectedLightings.length > 0) promptParts.push(selectedLightings.join(", "));
+  if (addedBackgrounds.length > 0) promptParts.push(addedBackgrounds.join(", "));
 
-  document.getElementById("prompt-output").value = prompt.trim();
+  // Join all parts into a full prompt string
+  const prompt = promptParts.join(", ");
+
+  // Display the result
+  document.getElementById("prompt-output").value = prompt;
 }
 
 // Copy to Clipboard
