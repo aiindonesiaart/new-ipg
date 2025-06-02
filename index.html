@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image Prompt Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="light-mode">
+  <div class="container">
+    <h1>🖼️ Image Prompt Generator</h1>
+
+    <!-- Angle View -->
+    <section class="prompt-section">
+      <h2>Angle View</h2>
+      <div id="angle-view-buttons" class="button-group"></div>
+    </section>
+
+    <!-- Art Style -->
+    <section class="prompt-section">
+      <h2>Art Style</h2>
+      <input type="text" id="art-style-search" placeholder="Search art style..." class="search-input"/>
+      <div id="art-style-buttons" class="button-group"></div>
+    </section>
+
+    <!-- Lighting -->
+    <section class="prompt-section">
+      <h2>Lighting</h2>
+      <div id="lighting-buttons" class="button-group"></div>
+    </section>
+
+    <!-- User Inputs -->
+    <section class="prompt-section">
+      <label>Character:</label>
+      <input type="text" id="character" />
+
+      <label>Main Activity:</label>
+      <select id="activity">
+        <!-- Populated dynamically -->
+      </select>
+
+      <label>Background:</label>
+      <select id="background">
+        <!-- Populated dynamically -->
+      </select>
+    </section>
+
+    <!-- Generate Button -->
+    <button id="generate-btn">Generate Prompt</button>
+
+    <!-- Output -->
+    <div id="result" class="result-box">
+      <textarea id="prompt-output" readonly></textarea>
+      <button id="copy-btn">Copy to Clipboard</button>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <button id="darkmode-toggle">Toggle Dark Mode</button>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
