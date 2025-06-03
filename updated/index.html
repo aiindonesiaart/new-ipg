@@ -31,33 +31,34 @@
       <div id="lighting-buttons" class="button-group"></div>
     </section>
 
-    <!-- Character -->
-    <section class="prompt-section">
-      <label for="character">Character:</label>
-      <textarea id="character" rows="3" placeholder="Describe the character..."></textarea>
-    </section>
+   <!-- Character -->
+<section class="prompt-section">
+  <h2>Character</h2>
+  <input type="text" id="character-input" placeholder="Describe the character..." oninput="handleCharacterAutocomplete()" />
+  <div id="character-suggestions" class="autocomplete"></div>
+</section>
 
-    <!-- Activity -->
-    <section class="prompt-section">
-      <h2>Main Activity</h2>
-      <input type="text" id="activity-input" placeholder="Select or type activity..." oninput="handleAutocomplete('activity')" />
-      <div id="activity-suggestions" class="autocomplete"></div>
+<!-- Main Activity -->
+<section class="prompt-section">
+  <h2>Main Activity</h2>
+  <input type="text" id="activity-input" placeholder="Select or type activity..." oninput="handleAutocomplete('activity')" />
+  <div id="activity-suggestions" class="autocomplete"></div>
 
-      <input type="text" id="custom-activity" placeholder="Add custom activity" />
-      <button onclick="addCustomTag('added-activities', 'custom-activity')">Add</button>
-      <div id="added-activities" class="tag-container"></div>
-    </section>
+  <input type="text" id="custom-activity" placeholder="Add custom activity" />
+  <button onclick="addCustomTag('added-activities', 'custom-activity')">Add</button>
+  <div id="added-activities" class="tag-container"></div>
+</section>
 
-    <!-- Background -->
-    <section class="prompt-section">
-      <h2>Background</h2>
-      <input type="text" id="background-input" placeholder="Select or type background..." oninput="handleAutocomplete('background')" />
-      <div id="background-suggestions" class="autocomplete"></div>
+<!-- Background -->
+<section class="prompt-section">
+  <h2>Background</h2>
+  <input type="text" id="background-input" placeholder="Select or type background..." oninput="handleAutocomplete('background')" />
+  <div id="background-suggestions" class="autocomplete"></div>
 
-      <input type="text" id="custom-background" placeholder="Add custom background" />
-      <button onclick="addCustomTag('added-backgrounds', 'custom-background')">Add</button>
-      <div id="added-backgrounds" class="tag-container"></div>
-    </section>
+  <input type="text" id="custom-background" placeholder="Add custom background" />
+  <button onclick="addCustomTag('added-backgrounds', 'custom-background')">Add</button>
+  <div id="added-backgrounds" class="tag-container"></div>
+</section>
 
     <!-- Generate Button -->
     <button id="generate-btn">Generate Prompt</button>
