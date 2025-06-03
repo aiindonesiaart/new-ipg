@@ -297,8 +297,7 @@ function copyToClipboard() {
 
 async function refinePromptWithGemini(prompt) {
   const apiKey = "AIzaSyCU05FsHsH1myXssYulUhJk54_3KSVaqxM"; // Replace with actual key
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
-
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
   const response = await fetch(url, {
     method: "POST",
     headers: {
