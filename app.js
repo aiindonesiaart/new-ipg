@@ -238,7 +238,31 @@ function renderPagination() {
   const paginationContainer = document.getElementById("pagination");
   paginationContainer.innerHTML = "";
 
-  for (let i = 1; i <= totalPages && i <= 3; i++) {
+  if (totalPages <= 1) return; // No need for pagination
+
+  // Previous Button
+  const prevBtn = document.createElement("button");
+  prevBtn.innerHTML = "←";
+  prevBtn.disabled = currentPage === 1;
+  prevBtn.onclick = () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderArtStyleButtons();
+      renderPagination();
+    }
+  };
+  paginationContainer.appendChild(prevBtn);
+
+  // Calculate visible page range
+  let startPage = Math.max(1, currentPage - 2);
+  let endPage = Math.min(totalPages, currentPage + 2);
+
+  // Adjust if near beginning or end
+  if (currentPage < 3) endPage = Math.min(5, totalPages);
+  if (currentPage > totalPages - 2) startPage = Math.max(totalPages - 4, 1);
+
+  // Page Buttons
+  for (let i = startPage; i <= endPage; i++) {
     const btn = document.createElement("button");
     btn.textContent = i;
     if (i === currentPage) btn.classList.add("active");
@@ -249,6 +273,19 @@ function renderPagination() {
     };
     paginationContainer.appendChild(btn);
   }
+
+  // Next Button
+  const nextBtn = document.createElement("button");
+  nextBtn.innerHTML = "→";
+  nextBtn.disabled = currentPage === totalPages;
+  nextBtn.onclick = () => {
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderArtStyleButtons();
+      renderPagination();
+    }
+  };
+  paginationContainer.appendChild(nextBtn);
 }
 
 function selectButton(button, containerId) {
