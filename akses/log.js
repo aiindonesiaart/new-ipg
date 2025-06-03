@@ -8,53 +8,67 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 
   errorMessage.textContent = "";
 
+  console.log("Fetching CSV...");
+
   fetch('https://aiindonesaiart.github.io/akses/image-pg.csv') 
-    .then(response => response.text())
+    .then(response => {
+      if (!response.ok) throw new Error("Network response was not ok");
+      return response.text();
+    })
     .then(data => {
-      const lines = data.split("\n").slice(1); // skip header
-      let userFound = false;
-      let sessionDays = null;
+      console.log("Raw CSV Data:", data);
 
-      for (let line of lines) {
-        const [csvEmail, csvPass, csvSession] = line.trim().split(",");
+      const lines = data.split("\n").filter(line => line.trim() !== "");
+      const headers = lines[0].split(",");
+      const users = lines.slice(1).map(line => {
+        const [csvEmail, csvPass, csvSession] = line.split(",");
+        return {
+          email: csvEmail.trim(),
+          password: csvPass.trim(),
+          session_days: csvSession.trim()
+        };
+      });
 
-        if (csvEmail === email && csvPass === password) {
-          userFound = true;
-          sessionDays = csvSession;
+      let userFound = null;
 
-          // Check session expiration
-          const now = new Date();
-          const storedLogin = localStorage.getItem("login_time_" + email);
-          let loginTime = storedLogin ? new Date(storedLogin) : now;
-
-          if (!storedLogin) {
-            // First login or no session yet
-            localStorage.setItem("login_time_" + email, loginTime.toISOString());
-          }
-
-          if (sessionDays !== "lifetime") {
-            const sessionExpire = new Date(loginTime);
-            sessionExpire.setDate(sessionExpire.getDate() + parseInt(sessionDays));
-
-            if (now > sessionExpire) {
-              errorMessage.textContent = "Your session has expired.";
-              return;
-            }
-          }
-
-          // Show content
-          content.style.display = "block";
-          this.style.display = "none";
+      for (let user of users) {
+        if (user.email === email && user.password === password) {
+          userFound = user;
           break;
         }
       }
 
       if (!userFound) {
         errorMessage.textContent = "Invalid email or password.";
+        return;
       }
+
+      // Session logic
+      const now = new Date();
+      const storedLogin = localStorage.getItem("login_time_" + email);
+      let loginTime = storedLogin ? new Date(storedLogin) : now;
+
+      if (!storedLogin) {
+        localStorage.setItem("login_time_" + email, loginTime.toISOString());
+      }
+
+      if (userFound.session_days !== "lifetime") {
+        const sessionExpire = new Date(loginTime);
+        sessionExpire.setDate(sessionExpire.getDate() + parseInt(userFound.session_days));
+
+        if (now > sessionExpire) {
+          errorMessage.textContent = "Your session has expired.";
+          return;
+        }
+      }
+
+      // Show content
+      document.querySelector(".login-form").style.display = "none";
+      content.style.display = "block";
+
     })
     .catch(err => {
-      console.error(err);
-      errorMessage.textContent = "Failed to load authentication data.";
+      console.error("Error fetching or parsing CSV:", err);
+      errorMessage.textContent = "Authentication failed. Please try again.";
     });
 });
