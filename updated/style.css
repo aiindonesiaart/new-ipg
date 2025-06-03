@@ -169,6 +169,7 @@ button#generate-btn:hover {
   padding: 10px;
   font-size: 1rem;
   background-color: #fafafa;
+  resize: vertical;
 }
 
 #copy-btn {
