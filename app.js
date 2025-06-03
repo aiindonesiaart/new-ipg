@@ -18,7 +18,6 @@ const angleViews = [
 ];
 
 const artStyles = [
-  [
   { label: "Cartoon", tooltip: "A stylized drawing often exaggerated for humor or effect." },
   { label: "Anime", tooltip: "Japanese animation style characterized by vibrant visuals and emotional storytelling." },
   { label: "3D", tooltip: "Three-dimensional digital modeling and rendering for realistic or stylized visuals." },
@@ -157,7 +156,6 @@ const artStyles = [
   { label: "Style of Edward Tingatinga", tooltip: "Tanzanian painting style with bold outlines and bright colors." },
   { label: "Style of Pablo Picasso", tooltip: "Cubist and abstract interpretation with fragmented forms and perspectives." },
   { label: "Wedha's Pop Art-Portrait Style", tooltip: "Bold, colorful pop art portraits with graphic influences." }
-]
 ];
 
 const lightingTypes = [
