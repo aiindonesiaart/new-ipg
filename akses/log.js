@@ -10,7 +10,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 
   console.log("Fetching CSV...");
 
-  fetch('https://aiindonesaiart.github.io/akses/image-pg.csv') 
+  fetch('https://aiindonesaiart.github.io/access/image-pg.csv') 
     .then(response => {
       if (!response.ok) throw new Error("Network response was not ok");
       return response.text();
