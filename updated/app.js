@@ -437,7 +437,8 @@ function generatePrompt() {
   if (selectedBackground) promptParts.push(selectedBackground);
   if (addedBackgrounds.length > 0) promptParts.push(addedBackgrounds.join(", "));
 
-  document.getElementById("prompt-output").value = promptParts.join(", ");
+  const promptOutput = document.getElementById("prompt-output");
+  promptOutput.value = promptParts.join(", ");
 }
 
 function copyToClipboard() {
