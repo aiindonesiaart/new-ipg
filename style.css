@@ -195,18 +195,26 @@ button#generate-btn:hover {
 }
 
 .pagination button {
-  padding: 6px 12px;
+  padding: 6px 10px;
   margin: 0 4px;
   border: none;
   border-radius: 4px;
   background-color: #ddd;
   cursor: pointer;
   font-weight: bold;
+  min-width: 30px;
+  text-align: center;
 }
 
 .pagination button.active {
   background-color: #3498db;
   color: white;
+}
+
+.pagination button:disabled {
+  background-color: #eee;
+  color: #aaa;
+  cursor: not-allowed;
 }
 
 @media (max-width: 600px) {
