@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="log.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>   
 </head>
-<body>
+<body class="light-mode">
 
 <div class="login-container">
   <!-- Login Form -->
@@ -28,11 +28,69 @@
 
   <!-- Protected Content -->
   <div id="content" class="container" style="display: none;">
-    <h2>Welcome!</h2>
-    <p>This is the protected content.</p>
+   <div class="container">
+    <h1><i class="fas fa-magic-wand-sparkles"></i> Image Prompt Generator</h1>
+    <h3>Developed By : <a href="https://geocities.ws/wahyudi">Wahyudi</a></h3>
+
+    <!-- Angle View -->
+    <section class="prompt-section">
+      <h2>Angle View</h2>
+      <div id="angle-view-buttons" class="button-group"></div>
+    </section>
+
+    <!-- Art Style -->
+    <section class="prompt-section">
+      <h2>Art Style</h2>
+      <input type="text" id="art-style-search" class="search-input" placeholder="Search art style..." oninput="filterArtStyles(this.value)" />
+      <div id="art-style-buttons" class="button-group"></div>
+      <div id="pagination" class="pagination"></div>
+    </section>
+
+    <!-- Lighting -->
+    <section class="prompt-section">
+      <h2>Lighting</h2>
+      <div id="lighting-buttons" class="button-group"></div>
+    </section>
+
+    <!-- Character -->
+    <section class="prompt-section">
+      <label for="character">Character:</label>
+      <textarea id="character" rows="3" placeholder="Describe the character..."></textarea>
+    </section>
+
+    <!-- Activity -->
+    <section class="prompt-section">
+      <h2>Main Activity</h2>
+      <select id="activity-select"></select>
+      <input type="text" id="custom-activity" placeholder="Add custom activity" />
+      <button onclick="addCustomTag('added-activities', 'custom-activity')">Add Activity</button>
+      <div id="added-activities" class="tag-container"></div>
+    </section>
+
+    <!-- Background -->
+    <section class="prompt-section">
+      <h2>Background</h2>
+      <select id="background-select"></select>
+      <input type="text" id="custom-background" placeholder="Add custom background" />
+      <button onclick="addCustomTag('added-backgrounds', 'custom-background')">Add Background</button>
+      <div id="added-backgrounds" class="tag-container"></div>
+    </section>
+
+    <!-- Generate Button -->
+    <button id="generate-btn">Generate Prompt</button>
+
+    <!-- Output -->
+    <div class="result-box">
+      <textarea id="prompt-output" readonly placeholder="Your generated prompt will appear here..."></textarea>
+      <button id="copy-btn">Copy to Clipboard</button>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <button id="darkmode-toggle">Toggle Dark Mode</button>
   </div>
 </div>
 
+<script src="app.js"></script>
 <script src="log.js"></script>
 </body>
 </html>
