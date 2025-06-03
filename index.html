@@ -13,21 +13,20 @@
     <!-- Angle View -->
     <section class="prompt-section">
       <h2>Angle View</h2>
-      <input type="text" class="search-input" placeholder="Search angle view..." oninput="filterButtons('angle-view-buttons', this.value)" />
       <div id="angle-view-buttons" class="button-group"></div>
     </section>
 
     <!-- Art Style -->
     <section class="prompt-section">
       <h2>Art Style</h2>
-      <input type="text" id="art-style-search" class="search-input" placeholder="Search art style..." oninput="filterButtons('art-style-buttons', this.value)" />
+      <input type="text" id="art-style-search" class="search-input" placeholder="Search art style..." oninput="filterArtStyles(this.value)" />
       <div id="art-style-buttons" class="button-group"></div>
+      <div id="pagination" class="pagination"></div>
     </section>
 
     <!-- Lighting -->
     <section class="prompt-section">
       <h2>Lighting</h2>
-      <input type="text" class="search-input" placeholder="Search lighting..." oninput="filterButtons('lighting-buttons', this.value)" />
       <div id="lighting-buttons" class="button-group"></div>
     </section>
 
