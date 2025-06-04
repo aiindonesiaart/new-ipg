@@ -327,23 +327,6 @@ function selectButton(button, containerId) {
   };
 }
 
-  const modal = document.getElementById("notification-modal");
-const modalMessage = document.getElementById("modal-message");
-
-modalMessage.textContent = `You selected ${button.innerText}`;
-modal.style.display = "block";
-
-document.querySelector(".modal .close-btn").onclick = function() {
-  modal.style.display = "none";
-};
-
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
-}
-
 // Autocomplete Functions
 function handleAutocomplete(type) {
   const input = document.getElementById(`${type}-input`);
