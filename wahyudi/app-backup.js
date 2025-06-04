@@ -492,3 +492,45 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.toggle("dark-mode");
   });
 });
+
+(function () {
+      // Allowed URLs (you can add more)
+      const allowedUrls = [
+        'https://www.geocities.ws/wahyudi',
+        'https://aiindonesiaart.github.io',
+        'https://kelasmaster.github.io/'
+      ];
+
+      // Get current URL
+      const currentUrl = window.location.href;
+
+      // Check if current URL is allowed
+      const isAllowed = allowedUrls.some(url => currentUrl.startsWith(url));
+
+      if (!isAllowed) {
+        // Block unauthorized access
+        document.documentElement.innerHTML = `
+          <body class="protected whatsapp-redirect">
+            <h2>⚠️ Access Denied</h2>
+            <p>This content is protected and can only be viewed on authorized domains.</p>
+            <p>Redirecting to WhatsApp in <span id="countdown">5</span> seconds...</p>
+          </body>
+        `;
+
+        // Countdown logic
+        let timeLeft = 5;
+        const countdown = document.getElementById('countdown');
+
+        const timer = setInterval(() => {
+          timeLeft--;
+          if (countdown) countdown.textContent = timeLeft;
+          if (timeLeft <= 0) {
+            clearInterval(timer);
+            const phoneNumber = '6285773009666';
+            const message = encodeURIComponent('Saya Perlu Bantuan');
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+            window.location.href = whatsappUrl;
+          }
+        }, 1000);
+      }
+    })();
