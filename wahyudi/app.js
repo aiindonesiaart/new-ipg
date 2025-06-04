@@ -310,6 +310,23 @@ function selectButton(button, containerId) {
     allButtons.forEach(btn => btn.style.display = "inline-block");
   }
 
+  // Show custom notification modal instead of alert
+  const modal = document.getElementById("notification-modal");
+  const modalMessage = document.getElementById("modal-message");
+  modalMessage.textContent = `You selected ${button.innerText}`;
+  modal.style.display = "block";
+
+  document.querySelector(".modal .close-btn").onclick = function() {
+    modal.style.display = "none";
+  };
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+}
+
   const modal = document.getElementById("notification-modal");
 const modalMessage = document.getElementById("modal-message");
 
